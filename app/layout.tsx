@@ -9,8 +9,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <aside></aside>
-        <main className="p-3">{children}</main>
+        <div className="flex min-h-screen overflow-hidden">
+          <aside className="bg-white w-64 "></aside>
+          <main className="bg-gray-100 flex-1 p-3">{children}</main>
+        </div>
       </body>
     </html>
   );
