@@ -13,7 +13,7 @@ const CardsData = [
 ];
 const Page = () => {
   return (
-    <div className="p-10">
+    <div className="">
       <h1 className="text-lg font-bold">Collections</h1>
       <div className="flex  mt-5 gap-[3%] justify-between">
         {CardsData.map((i) => {

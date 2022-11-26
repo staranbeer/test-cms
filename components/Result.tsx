@@ -5,17 +5,19 @@ const DatePicker = () => {
 
 const Result = ({ code }: { code: string }) => {
   return (
-    <Markdown
-      options={{
-        overrides: {
-          DatePicker: {
-            component: DatePicker,
+    <div className="bg-white border-t-2 py-4">
+      <Markdown
+        options={{
+          overrides: {
+            DatePicker: {
+              component: DatePicker,
+            },
           },
-        },
-      }}
-    >
-      {code}
-    </Markdown>
+        }}
+      >
+        {code}
+      </Markdown>
+    </div>
   );
 };
 
