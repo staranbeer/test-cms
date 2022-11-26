@@ -1,17 +1,11 @@
 import Link from "next/link";
 import Card from "../../../components/utils/Card";
 
-export const getData = async () => {
+const Collection = async () => {
   const blogs = [
     { name: "This is blog one", desc: "This is blog one's description" },
     { name: "This is blog two", desc: "This is blog two's description" },
   ];
-
-  return blogs;
-};
-
-const Collection = async () => {
-  const blogs = await getData();
 
   return (
     <div>
