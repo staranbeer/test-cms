@@ -1,5 +1,6 @@
 import Link from "next/link";
-import Card from "../../components/utils/Card";
+import Card from "../../../components/utils/Card";
+
 const CardsData = [
   {
     name: "Documentation",
@@ -21,7 +22,7 @@ const Page = () => {
             <Link
               className="cursor-pointer"
               key={i.name}
-              href={`/collections/${i.name.toLowerCase()}`}
+              href={`/content/collections/${i.name.toLowerCase()}`}
             >
               <Card className="basis-[30%]">
                 <h2>{i.name}</h2>

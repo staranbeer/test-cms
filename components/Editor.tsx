@@ -1,3 +1,5 @@
+"use client";
+
 import ExampleTheme from "./themes/ExampleTheme";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
@@ -13,13 +15,21 @@ import { CodeHighlightNode, CodeNode } from "@lexical/code";
 import { AutoLinkNode, LinkNode } from "@lexical/link";
 import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin";
 import { ListPlugin } from "@lexical/react/LexicalListPlugin";
+import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
+
 import { MarkdownShortcutPlugin } from "@lexical/react/LexicalMarkdownShortcutPlugin";
-import { TRANSFORMERS } from "@lexical/markdown";
+import {
+  TRANSFORMERS,
+  $convertFromMarkdownString,
+  $convertToMarkdownString,
+} from "@lexical/markdown";
 
 import ListMaxIndentLevelPlugin from "./plugins/ListMaxIndentLevelPlugin";
 import CodeHighlightPlugin from "./plugins/CodeHighlightPlugin";
 import AutoLinkPlugin from "./plugins/AutoLinkPlugin";
-import { useEffect } from "react";
+import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
+import { Dispatch, SetStateAction, useState } from "react";
+import { EditorState, LexicalEditor } from "lexical";
 
 function Placeholder() {
   return <div className="editor-placeholder">Enter some rich text...</div>;
@@ -47,7 +57,21 @@ const editorConfig = {
   ],
 };
 
-export default function Editor() {
+export default function Editor({
+  setResultCode,
+}: {
+  setResultCode: Dispatch<SetStateAction<string>>;
+}) {
+  const [markdown, setMarkdown] = useState<string>("");
+
+  const onChange = (editorState: EditorState, editor: LexicalEditor) => {
+    editor.update(() => {
+      const md = $convertToMarkdownString(TRANSFORMERS);
+      setResultCode(md);
+      setMarkdown(md);
+    });
+  };
+
   return (
     <LexicalComposer initialConfig={editorConfig}>
       <div className="editor-container">
@@ -64,6 +88,7 @@ export default function Editor() {
           <ListPlugin />
           <LinkPlugin />
           <AutoLinkPlugin />
+          <OnChangePlugin onChange={onChange} ignoreSelectionChange />
           <ListMaxIndentLevelPlugin maxDepth={7} />
           <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
         </div>

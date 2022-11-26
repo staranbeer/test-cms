@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Card from "../../../components/utils/Card";
+import Card from "../../../../components/utils/Card";
 
 const Collection = async () => {
   const blogs = [
@@ -13,7 +13,7 @@ const Collection = async () => {
       <div className="flex gap-5 mt-5">
         {blogs.map((i) => {
           return (
-            <Link key={i.name} href="/editor">
+            <Link key={i.name} href="/content/editor">
               <Card>
                 <h1 className="text-lg font-semibold">{i.name}</h1>
                 <p className="text-gray-600 mt-4">{i.desc}</p>

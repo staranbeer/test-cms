@@ -11,7 +11,7 @@ const Page = () => {
       </h1>
       <Link
         className="underline underline-offset-4 text-purple-800 text-center mt-6 block max-w-content"
-        href="/collections"
+        href="/content/collections"
       >
         Continue to your saved collections
       </Link>
