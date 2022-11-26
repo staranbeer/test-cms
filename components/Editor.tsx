@@ -28,6 +28,7 @@ function Placeholder() {
 const editorConfig = {
   // The editor theme
   theme: ExampleTheme,
+  namespace: "",
   // Handling of errors during update
   onError(error: Error) {},
   // Any custom nodes go here
