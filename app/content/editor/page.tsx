@@ -14,6 +14,14 @@ const Page = () => {
       <div className="flex-1">
         <Result code={resultCode} />
       </div>
+      <button
+        onClick={() => {
+          navigator.clipboard.writeText(resultCode);
+        }}
+        className="bg-blue-500 px-6 py-2 font-bold rounded-md text-white fixed right-6 top-4"
+      >
+        Save progress
+      </button>
     </div>
   );
 };

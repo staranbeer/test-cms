@@ -5,6 +5,7 @@
 .button-primary {
   @apply px-6 py-2 bg-blue-500 rounded-md font-bold text-white;
 }
+
 @layer base {
   .editor-inner {
     background: #fff;
@@ -183,12 +184,14 @@
     padding: 0;
     margin: 0;
     margin-left: 16px;
+    list-style-type: decimal;
   }
 
   .editor-list-ul {
     padding: 0;
     margin: 0;
     margin-left: 16px;
+    list-style-type: disc;
   }
 
   .editor-listitem {
@@ -529,4 +532,13 @@
 
   i.justify-align {
   }
+}
+.result ol,
+.editor ol {
+  @apply list-decimal;
+}
+
+.result ul,
+.editor ul {
+  @apply list-disc list-inside;
 }

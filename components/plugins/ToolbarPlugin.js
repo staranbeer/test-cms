@@ -600,13 +600,15 @@ export default function ToolbarPlugin() {
       {supportedBlockTypes.has(blockType) && (
         <>
           <button
-            className="w-40 toolbar-item block-controls flex items-center justify-start gap-8 "
+            className="toolbar-item block-controls flex items-center justify-start gap-8"
             onClick={() =>
               setShowBlockOptionsDropDown(!showBlockOptionsDropDown)
             }
             aria-label="Formatting Options"
           >
-            <span className="text">{blockTypeToBlockName[blockType]}</span>
+            <span className="w-20 text-ellipsis overflow-hidden whitespace-nowrap">
+              {blockTypeToBlockName[blockType]}
+            </span>
             <HiChevronDown size={20} />
           </button>
           {showBlockOptionsDropDown &&

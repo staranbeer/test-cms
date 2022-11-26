@@ -5,7 +5,7 @@ const DatePicker = () => {
 
 const Result = ({ code }: { code: string }) => {
   return (
-    <div className="bg-white border-t-2 py-4">
+    <div className="result bg-white border-t-2 py-4">
       <Markdown
         options={{
           overrides: {
