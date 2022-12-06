@@ -1,13 +1,43 @@
-async function getData(collection: string) {
-  const URL = `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/collections/${collection}`;
-  console.log(URL);
-  const res = await fetch(URL);
+import { createAppAuth } from "@octokit/auth-app";
+import { Octokit } from "@octokit/rest";
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
+const getPage = async (collection: string | string[] | undefined) => {
+  let requestedCollection;
+
+  const octokit = new Octokit({
+    authStrategy: createAppAuth,
+    auth: {
+      appId: process.env.APP_ID,
+      privateKey: process.env.PRIVATE_KEY,
+      installationId: process.env.INSTALLATION_ID,
+    },
+  });
+
+  if (collection) {
+    if (typeof collection === "string") {
+      requestedCollection = collection;
+    } else {
+      requestedCollection = collection.join("/");
+    }
   }
+  console.log("THis is what we want", requestedCollection, collection);
+  const { data } = await octokit.rest.repos.getContent({
+    owner: "OutpostLabs",
+    repo: "Outpost.run",
+    path: `content/${requestedCollection}`,
+  });
+  return data;
+};
 
-  return res.json();
+async function getData(collection: string) {
+  let requestedCollection = collection;
+  console.log("this was requested", requestedCollection);
+  let data = await getPage(requestedCollection);
+
+  let parsedCollections = JSON.parse(JSON.stringify(data)).map((i: any) => {
+    return { name: i.name, type: i.type, path: i.path };
+  });
+  return parsedCollections;
 }
 
 const Page = async ({

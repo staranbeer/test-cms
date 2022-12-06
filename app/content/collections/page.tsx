@@ -1,19 +1,34 @@
+import { createAppAuth } from "@octokit/auth-app";
+import { Octokit } from "@octokit/rest";
 import Link from "next/link";
 import Card from "../../../components/utils/Card";
 
+const getAllCollections = async () => {
+  const octokit = new Octokit({
+    authStrategy: createAppAuth,
+    auth: {
+      appId: process.env.APP_ID,
+      privateKey: process.env.PRIVATE_KEY,
+      installationId: process.env.INSTALLATION_ID,
+    },
+  });
+
+  const { data } = await octokit.rest.repos.getContent({
+    owner: "OutpostLabs",
+    repo: "Outpost.run",
+    path: "content",
+  });
+
+  return data;
+};
+
 async function getData() {
-  const res = await fetch(
-    `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/collections`,
-    {
-      method: "GET",
-    }
-  );
+  let data = await getAllCollections();
+  let parsedCollections = JSON.parse(JSON.stringify(data)).map((i: any) => {
+    return { name: i.name, type: i.type, path: i.path };
+  });
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
-  }
-
-  return res.json();
+  return parsedCollections;
 }
 
 export default async function Page() {

@@ -1,16 +1,36 @@
+import { createAppAuth } from "@octokit/auth-app";
+import { Octokit } from "@octokit/rest";
 import Link from "next/link";
 import Card from "../../../../components/utils/Card";
 
+const getCollection = async (collection: string | string[] | undefined) => {
+  console.log(collection);
+  const octokit = new Octokit({
+    authStrategy: createAppAuth,
+    auth: {
+      appId: process.env.APP_ID,
+      privateKey: process.env.PRIVATE_KEY,
+      installationId: process.env.INSTALLATION_ID,
+    },
+  });
+
+  const { data } = await octokit.rest.repos.getContent({
+    owner: "OutpostLabs",
+    repo: "Outpost.run",
+    path: `content/${collection}`,
+  });
+
+  return data;
+};
+
 async function getData(collection: string) {
-  const res = await fetch(
-    `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/collections/${collection}`
-  );
+  let requestedCollection = collection;
+  let data = await getCollection(requestedCollection);
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
-  }
-
-  return res.json();
+  let parsedCollections = JSON.parse(JSON.stringify(data)).map((i: any) => {
+    return { name: i.name, type: i.type, path: i.path };
+  });
+  return parsedCollections;
 }
 
 const Collection = async ({
@@ -29,7 +49,9 @@ const Collection = async ({
     <>
       {data ? (
         <div>
-          <h1 className="text-2xl mb-8 font-bold">Blog Collection</h1>
+          <h1 className="text-2xl mb-8 font-bold">
+            {params.collection} Collection
+          </h1>
           <div>
             {folders.length > 0 && (
               <h2 className="text-lg mb-4 bg-pink-500 inline text-white px-3 py-1 rounded-md font-bold">
