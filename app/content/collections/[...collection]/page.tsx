@@ -1,7 +1,7 @@
 async function getData(collection: string) {
-  const res = await fetch(
-    `https://${process.env.NEXT_PUBLIC_VERCEL_ENV}/api/collections/${collection}`
-  );
+  const URL = `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/collections/${collection}`;
+  console.log(URL);
+  const res = await fetch(URL);
 
   if (!res.ok) {
     throw new Error("Failed to fetch data");

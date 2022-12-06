@@ -1,8 +1,7 @@
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { env } from "process";
 
 const Page = () => {
-  const router = useRouter();
   return (
     <div>
       <div>
@@ -10,6 +9,8 @@ const Page = () => {
         <Link href="/content/collections">
           Continue to your saved collections
         </Link>
+
+        <pre>{JSON.stringify(env, null, 2)}</pre>
       </div>
     </div>
   );
