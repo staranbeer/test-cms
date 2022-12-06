@@ -1,4 +1,3 @@
-import { useState } from "react";
 import EditorUI from "../../../../components/EditorUi";
 
 const Page = ({
@@ -9,7 +8,6 @@ const Page = ({
   };
 }) => {
   const file = params.file.join("/");
-  const [resultCode, setResultCode] = useState("The result will show up here");
 
   return (
     <div className="flex divide-x-2 h-screen overflow-hidden">
