@@ -9,8 +9,6 @@ const Page = () => {
         <Link href="/content/collections">
           Continue to your saved collections
         </Link>
-
-        <pre>{JSON.stringify(env, null, 2)}</pre>
       </div>
     </div>
   );
