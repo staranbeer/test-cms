@@ -2,7 +2,7 @@ import Link from "next/link";
 import Card from "../../../components/utils/Card";
 
 async function getData() {
-  const res = await fetch(`${process.env.BASE_FETCH_URL}/api/collections`, {
+  const res = await fetch(`${process.env.VERCEL_URL}/api/collections`, {
     method: "GET",
   });
 
