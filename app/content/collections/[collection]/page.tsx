@@ -3,7 +3,7 @@ import Card from "../../../../components/utils/Card";
 
 async function getData(collection: string) {
   const res = await fetch(
-    `${process.env.VERCEL_URL}/api/collections/${collection}`
+    `${process.env.NEXT_PUBLIC_VERCEL_ENV}/api/collections/${collection}`
   );
 
   if (!res.ok) {
