@@ -20,7 +20,15 @@ const Page = async ({
   const route = params.collection.join("/");
   const data = await getData(route);
   console.log(data);
-  return <div>{data.map((i: any) => i.name)}</div>;
+  return (
+    <>
+      {data ? (
+        <div>{data.map((i: any) => i.name)}</div>
+      ) : (
+        <div>nothing found</div>
+      )}
+    </>
+  );
 };
 
 export default Page;

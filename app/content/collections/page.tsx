@@ -18,24 +18,31 @@ async function getData() {
 
 export default async function Page() {
   const data = await getData();
+  console.log("THIS IS THE DATA: ", data);
   return (
-    <div>
-      <h1>Collections</h1>
-      <div className="flex gap-5 mt-5 flex-wrap">
-        {data.map((i: any) => {
-          return (
-            <Link
-              key={i.name}
-              href={`/content/collections/${i.name.toLowerCase()}`}
-            >
-              <Card>
-                <h2>{i.name}</h2>
-                <p>{i.path}</p>
-              </Card>
-            </Link>
-          );
-        })}
-      </div>
-    </div>
+    <>
+      {data ? (
+        <div>
+          <h1>Collections</h1>
+          <div className="flex gap-5 mt-5 flex-wrap">
+            {data.map((i: any) => {
+              return (
+                <Link
+                  key={i.name}
+                  href={`/content/collections/${i.name.toLowerCase()}`}
+                >
+                  <Card>
+                    <h2>{i.name}</h2>
+                    <p>{i.path}</p>
+                  </Card>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      ) : (
+        <div>noting found</div>
+      )}
+    </>
   );
 }
