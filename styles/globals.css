@@ -1,11 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-.button-primary {
-  @apply px-6 py-2 bg-blue-500 rounded-md font-bold text-white;
-}
-
 @layer base {
   .editor-inner {
     background: #fff;
@@ -532,13 +527,11 @@
 
   i.justify-align {
   }
-}
-.result ol,
-.editor ol {
-  @apply list-decimal;
-}
+  .result ol,
+  .editor ol {
+  }
 
-.result ul,
-.editor ul {
-  @apply list-disc list-inside;
+  .result ul,
+  .editor ul {
+  }
 }

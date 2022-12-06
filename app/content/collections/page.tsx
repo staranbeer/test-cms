@@ -1,32 +1,33 @@
 import Link from "next/link";
 import Card from "../../../components/utils/Card";
 
-const CardsData = [
-  {
-    name: "Documentation",
-    desc: "Edit the official documentation for the control plane",
-  },
-  { name: "Blog", desc: "Edit the Blog posts on the official website" },
-  {
-    name: "Pages",
-    desc: "Edit the page content on the official Outpost website",
-  },
-];
-const Page = () => {
+async function getData() {
+  const res = await fetch(`${process.env.BASE_FETCH_URL}/api/collections`, {
+    method: "GET",
+  });
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json();
+}
+
+export default async function Page() {
+  const data = await getData();
   return (
-    <div className="">
-      <h1 className="text-lg font-bold">Collections</h1>
-      <div className="flex  mt-5 gap-[3%] justify-between">
-        {CardsData.map((i) => {
+    <div>
+      <h1>Collections</h1>
+      <div className="flex gap-5 mt-5 flex-wrap">
+        {data.map((i: any) => {
           return (
             <Link
-              className="cursor-pointer"
               key={i.name}
               href={`/content/collections/${i.name.toLowerCase()}`}
             >
-              <Card className="basis-[30%]">
+              <Card>
                 <h2>{i.name}</h2>
-                <p className="text-gray-600 mt-4 ">{i.desc}</p>
+                <p>{i.path}</p>
               </Card>
             </Link>
           );
@@ -34,6 +35,4 @@ const Page = () => {
       </div>
     </div>
   );
-};
-
-export default Page;
+}

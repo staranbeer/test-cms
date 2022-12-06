@@ -1,3 +1,4 @@
+"use client";
 import { ReactNode } from "react";
 
 const Card = ({
@@ -8,9 +9,11 @@ const Card = ({
   className?: string;
 }) => {
   return (
-    <article className={`p-4 py-6 rounded-lg shadow-md bg-white ${className}`}>
+    <div
+      className={`p-5 border rounded-lg shadow-md lg:min-w-[20rem] ${className}`}
+    >
       {children}
-    </article>
+    </div>
   );
 };
 
