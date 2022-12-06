@@ -9,7 +9,7 @@ const Card = ({
 }) => {
   return (
     <div
-      className={`p-5 border rounded-lg shadow-md lg:min-w-[20rem] ${className}`}
+      className={`card p-5 border rounded-lg shadow-md lg:min-w-[20rem] flex flex-col gap-4 ${className}`}
     >
       {children}
     </div>

@@ -1,5 +1,7 @@
 import { createAppAuth } from "@octokit/auth-app";
 import { Octokit } from "@octokit/rest";
+import Link from "next/link";
+import Card from "../../../../components/utils/Card";
 
 const getPage = async (collection: string | string[] | undefined) => {
   let requestedCollection;
@@ -49,15 +51,30 @@ const Page = async ({
 }) => {
   const route = params.collection.join("/");
   const data = await getData(route);
-  console.log(data);
   return (
-    <>
+    <div className="p-10">
+      <h2 className="text-2xl capitalize font-bold mb-8">
+        {params.collection[params.collection.length - 1]}
+      </h2>
       {data ? (
-        <div>{data.map((i: any) => i.name)}</div>
+        <div className="flex  flex-wrap gap-5">
+          {data.map((i: any) => (
+            <Link
+              href={`/content/editor/collections/${params.collection.join(
+                "/"
+              )}`}
+              key={i.name}
+            >
+              <Card>
+                <h2>{i.name.replaceAll(".mdx", "")}</h2>
+              </Card>
+            </Link>
+          ))}
+        </div>
       ) : (
         <div>nothing found</div>
       )}
-    </>
+    </div>
   );
 };
 

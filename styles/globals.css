@@ -1,7 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 @layer base {
+  .tag {
+    @apply py-1 px-2 rounded-md text-white font-bold;
+  }
+
+  .card h2 {
+    @apply text-lg font-bold;
+  }
+
   .editor-inner {
     background: #fff;
     position: relative;

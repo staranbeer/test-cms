@@ -37,7 +37,7 @@ export default async function Page() {
   return (
     <>
       {data ? (
-        <div>
+        <div className="p-10">
           <h1>Collections</h1>
           <div className="flex gap-5 mt-5 flex-wrap">
             {data.map((i: any) => {
@@ -47,8 +47,7 @@ export default async function Page() {
                   href={`/content/collections/${i.name.toLowerCase()}`}
                 >
                   <Card>
-                    <h2>{i.name}</h2>
-                    <p>{i.path}</p>
+                    <h2 className="capitalize">{i.name}</h2>
                   </Card>
                 </Link>
               );
